@@ -99,7 +99,16 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && apt-get -y install \
     && gem update --system --no-document
 RUN [ -x "$(command -v bundle)" ] || gem install bundler --no-document
 
-RUN gem install fastlane --no-document \
- && fastlane --version
+RUN gem install fastlane --no-document 
+RUN fastlane --version
 
  #### END INSTALL FASTLANE #####
+
+ ### FIREBASE TOOLS ####
+RUN apt-get install -y sudo
+RUN curl -sL firebase.tools | bash
+#### FIREBASE TOOLS END #####
+    
+ADD Gemfile /usr/bin
+RUN bundle install
+
